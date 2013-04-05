@@ -1,5 +1,5 @@
 (ns com.hypirion.nt.prime
-  (:require [com.hypirion.prime :as p]
+  (:require [com.hypirion.primes :as p]
             [clojure.math.numeric-tower :refer [expt]]))
 
 (defn factor? [num den]
