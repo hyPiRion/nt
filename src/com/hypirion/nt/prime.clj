@@ -6,7 +6,7 @@
   (zero? (rem num den)))
 
 (defn divisor-count [n]
-  (->> n p/factorize frequencies keys (map inc) (reduce *)))
+  (->> n p/factorize frequencies vals (map inc) (reduce *)))
 
 (defn unique-prime-factors [n]
   (set (p/factorize n)))
