@@ -2,6 +2,9 @@
   (:require [com.hypirion.prime :as p]
             [clojure.math.numeric-tower :refer [expt]]))
 
+(defn factor? [num den]
+  (zero? (rem num den)))
+
 (defn divisor-count [n]
   (->> n p/factorize frequencies keys (map inc) (reduce *)))
 
@@ -17,7 +20,7 @@
 ;; TODO: Make this completely tail recursive.
 (defn- acc-tot [d primes]
   (cond (= 1 d) 1
-        (prime? d) (- d 1)
+        (p/prime? d) (- d 1)
         :else (loop [[p & r] primes]
                 (if (zero? (rem d p))
                   (loop [k 1
