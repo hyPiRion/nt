@@ -1,4 +1,5 @@
 # nt
+[![Build Status](https://travis-ci.org/hyPiRion/nt.png)](https://travis-ci.org/hyPiRion/nt)
 
 nt is a Clojure library for number theory functions. If you're directly
 interested in primes and prime generation, you should have a look at [primes][],
