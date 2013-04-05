@@ -1,6 +1,6 @@
-(ns com.hypirion.io.nt-test
+(ns com.hypirion.nt-test
   (:use clojure.test
-        com.hypirion.io.nt))
+        com.hypirion.nt))
 
 (deftest a-test
   (testing "FIXME, I fail."

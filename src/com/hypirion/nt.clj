@@ -1,4 +1,4 @@
-(ns com.hypirion.io.nt)
+(ns com.hypirion.nt)
 
 (defn foo
   "I don't do a whole lot."
