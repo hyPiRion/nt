@@ -11,7 +11,9 @@
 (defn unique-prime-factors [n]
   (set (p/factorize n)))
 
-(defn radical [n]
+(defn radical
+  "The radical of a number n is the product of distinct prime factors of n."
+  [n]
   (reduce * (unique-prime-factors n)))
 
 (defn- totient-pow [p k]
