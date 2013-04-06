@@ -35,4 +35,4 @@
                   (recur r)))))
 
 (defn euler-totient [d]
-  (acc-tot d p/primes))
+  (acc-tot d (p/primes)))
