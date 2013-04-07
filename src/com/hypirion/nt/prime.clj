@@ -2,6 +2,21 @@
   (:require [com.hypirion.primes :as p]
             [clojure.math.numeric-tower :refer [expt]]))
 
+(defn gcd [a b]
+  (if (zero? b) a
+      (recur b (mod a b))))
+
+(defn extended-gcd
+  "Calculates the extended GCD and returns a vector [r x y]. r is the GCD x is
+  the multiplicative inverse of a modulo b, and y is the multiplicative inverse
+  of b modulo a."
+  [a b]
+  (if (zero? b) [a 1 0]
+    (let [q (quot a b)
+          r (mod a b)
+          [gcd x y] (extended-gcd b r)]
+      [gcd y (- x (* q y))])))
+
 (defn factor? [num den]
   (zero? (rem num den)))
 
