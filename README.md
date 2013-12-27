@@ -3,7 +3,10 @@
 
 nt is a Clojure library for number theory functions. If you're directly
 interested in primes and prime generation, you should have a look at [primes][],
-which is a library for fast and concurrent prime generation in Clojure.
+which is a library for fast and concurrent prime generation in Clojure. nt is
+currently inactive, and would require a lot more utility functions to be useful.
+However, changes in the library are likely to be feature additions, so
+`0.x.y`-releases should generally be backwards compatible.
 
 [primes]: https://github.com/hyPiRion/primes
 
