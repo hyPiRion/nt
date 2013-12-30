@@ -1,6 +1,16 @@
 (ns com.hypirion.nt.combinatorics)
 
-(defn ncr [n r]
+(defn !
+  "Calculates the factorial of n, n!."
+  [n]
+  (loop [i 2, acc 1]
+    (if (< n i)
+      acc
+      (recur (inc i) (* acc i)))))
+
+(defn ncr
+  "Calculates n choose r."
+  [n r]
   (if (<= 0 r n)
     (let [r (min r (- n r))]
       (loop [res 1
@@ -18,9 +28,11 @@
       (recur (quot i radix)
              (conj acc (rem i radix))))))
 
-(defn lucas-thm [n m p]
+(defn lucas-thm
+  "Calculates m choose n (mod p)."
+  [m n p]
   (reduce
    (fn [acc [a b]]
      (-> (ncr a b) (* acc) (mod p)))
    1
-   (map list (to-radix n p) (to-radix m p))))
+   (mapv list (to-radix m p) (to-radix n p))))
