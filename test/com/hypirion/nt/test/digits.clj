@@ -35,6 +35,6 @@
                  (gen/bind (gen/choose 1 1000000)
                            (fn [r]
                              (gen/tuple (gen/return r)
-                                        (gen/vector (gen/choose 1 r)
+                                        (gen/vector (gen/choose 1 (dec r))
                                                     1 (largest-vector-size r)))))]
     (= digits (num->digits (digits->num digits r) r))))
