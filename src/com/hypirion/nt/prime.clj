@@ -6,6 +6,9 @@
   (if (zero? b) a
       (recur b (mod a b))))
 
+(defn lcm [a b]
+  (* b (/ a (gcd a b))))
+
 (defn extended-gcd
   "Calculates the extended GCD and returns a vector [r x y]. r is the GCD x is
   the multiplicative inverse of a modulo b, and y is the multiplicative inverse
