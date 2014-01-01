@@ -5,6 +5,7 @@
             [simple-check.clojure-test :as ct :refer [defspec]]
             [com.hypirion.primes :as p]
             [com.hypirion.nt.prime :refer :all]
+            [clojure.math.numeric-tower :as math]
             [clojure.test :refer :all]))
 
 (deftest test-divisor-count
@@ -78,3 +79,17 @@
   1000
   (prop/for-all [a gen/s-pos-int, b gen/pos-int]
     (= a (lcm a (gcd a b)))))
+
+(defspec test-gcd-lcm-product-rule
+  1000
+  (prop/for-all [a (gen/choose 1 Integer/MAX_VALUE)
+                 b (gen/choose 1 Integer/MAX_VALUE)]
+    (= (* (gcd a b) (lcm a b)) (* a b))))
+
+(defspec euler-totient-power
+  1000
+  (prop/for-all [n (gen/choose 1 50)
+                 m (gen/choose 1 11)]
+    (let [power (math/expt n m)]
+      (= (euler-totient power)
+         (* (quot power n) (euler-totient n))))))
