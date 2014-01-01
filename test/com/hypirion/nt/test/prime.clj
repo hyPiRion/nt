@@ -1,5 +1,9 @@
 (ns com.hypirion.nt.test.prime
-  (:require [com.hypirion.primes :as p]
+  (:require [simple-check.core       :as sc]
+            [simple-check.generators :as gen]
+            [simple-check.properties :as prop]
+            [simple-check.clojure-test :as ct :refer [defspec]]
+            [com.hypirion.primes :as p]
             [com.hypirion.nt.prime :refer :all]
             [clojure.test :refer :all]))
 
@@ -34,3 +38,43 @@
          90 24
          100 40
          9007199254740881 9007199254740880)))
+
+(defspec test-gcd-idempotent
+  1000
+  (prop/for-all [a gen/pos-int]
+    (= (gcd a a) a)))
+
+(defspec test-lcm-idempotent
+  1000
+  (prop/for-all [a gen/s-pos-int]
+    (= (lcm a a) a)))
+
+(defspec test-gcd-commutative
+  1000
+  (prop/for-all [a gen/pos-int, b gen/pos-int]
+    (= (gcd a b) (gcd b a))))
+
+(defspec test-lcm-commutative
+  1000
+  (prop/for-all [a gen/s-pos-int, b gen/s-pos-int]
+    (= (lcm a b) (lcm b a))))
+
+(defspec test-gcd-associative
+  1000
+  (prop/for-all [a gen/pos-int, b gen/pos-int, c gen/pos-int]
+    (= (gcd a (gcd b c)) (gcd (gcd a b) c))))
+
+(defspec test-lcm-associative
+  1000
+  (prop/for-all [a gen/s-pos-int, b gen/s-pos-int, c gen/s-pos-int]
+    (= (lcm a (lcm b c)) (lcm (lcm a b) c))))
+
+(defspec test-gcd-absorption
+  1000
+  (prop/for-all [a gen/s-pos-int, b gen/pos-int]
+    (= a (gcd a (lcm a b)))))
+
+(defspec test-lcm-absorption
+  1000
+  (prop/for-all [a gen/s-pos-int, b gen/pos-int]
+    (= a (lcm a (gcd a b)))))
