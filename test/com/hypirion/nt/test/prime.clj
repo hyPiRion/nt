@@ -42,54 +42,64 @@
 
 (defspec test-gcd-idempotent
   1000
-  (prop/for-all [a gen/pos-int]
-    (= (gcd a a) a)))
+  (testing "gcd(a, a) = a for all a"
+    (prop/for-all [a gen/pos-int]
+      (= (gcd a a) a))))
 
 (defspec test-lcm-idempotent
   1000
-  (prop/for-all [a gen/s-pos-int]
-    (= (lcm a a) a)))
+  (testing "lcm(a, a) = a, for all a"
+    (prop/for-all [a gen/s-pos-int]
+      (= (lcm a a) a))))
 
 (defspec test-gcd-commutative
   1000
-  (prop/for-all [a gen/pos-int, b gen/pos-int]
-    (= (gcd a b) (gcd b a))))
+  (testing "gcd(a, b) = gcd(b, a)"
+    (prop/for-all [a gen/pos-int, b gen/pos-int]
+      (= (gcd a b) (gcd b a)))))
 
 (defspec test-lcm-commutative
   1000
-  (prop/for-all [a gen/s-pos-int, b gen/s-pos-int]
-    (= (lcm a b) (lcm b a))))
+  (testing "lcm(a, b) = lcm(b, a)"
+    (prop/for-all [a gen/s-pos-int, b gen/s-pos-int]
+      (= (lcm a b) (lcm b a)))))
 
 (defspec test-gcd-associative
   1000
-  (prop/for-all [a gen/pos-int, b gen/pos-int, c gen/pos-int]
-    (= (gcd a (gcd b c)) (gcd (gcd a b) c))))
+  (testing "gcd(a, gcd(b, c)) = gcd(gcd(a, b), c)"
+    (prop/for-all [a gen/pos-int, b gen/pos-int, c gen/pos-int]
+      (= (gcd a (gcd b c)) (gcd (gcd a b) c)))))
 
 (defspec test-lcm-associative
   1000
-  (prop/for-all [a gen/s-pos-int, b gen/s-pos-int, c gen/s-pos-int]
-    (= (lcm a (lcm b c)) (lcm (lcm a b) c))))
+  (testing "lcm(a, lcm(b, c)) = lcm(lcm(a, b), c)"
+    (prop/for-all [a gen/s-pos-int, b gen/s-pos-int, c gen/s-pos-int]
+      (= (lcm a (lcm b c)) (lcm (lcm a b) c)))))
 
 (defspec test-gcd-absorption
   1000
-  (prop/for-all [a gen/s-pos-int, b gen/pos-int]
-    (= a (gcd a (lcm a b)))))
+  (testing "gcd(a, lcm(a, b)) = a"
+    (prop/for-all [a gen/s-pos-int, b gen/pos-int]
+      (= a (gcd a (lcm a b))))))
 
 (defspec test-lcm-absorption
   1000
-  (prop/for-all [a gen/s-pos-int, b gen/pos-int]
-    (= a (lcm a (gcd a b)))))
+  (testing "lcm(a, gcd(a, b)) = a"
+    (prop/for-all [a gen/s-pos-int, b gen/pos-int]
+      (= a (lcm a (gcd a b))))))
 
 (defspec test-gcd-lcm-product-rule
   1000
-  (prop/for-all [a (gen/choose 1 Integer/MAX_VALUE)
-                 b (gen/choose 1 Integer/MAX_VALUE)]
-    (= (* (gcd a b) (lcm a b)) (* a b))))
+  (testing "gcd(a, b) * lcm(a, b) = (* a b)"
+    (prop/for-all [a (gen/choose 1 Integer/MAX_VALUE)
+                   b (gen/choose 1 Integer/MAX_VALUE)]
+      (= (* (gcd a b) (lcm a b)) (* a b)))))
 
 (defspec euler-totient-power
   1000
-  (prop/for-all [n (gen/choose 1 50)
-                 m (gen/choose 1 11)]
-    (let [power (math/expt n m)]
-      (= (euler-totient power)
-         (* (quot power n) (euler-totient n))))))
+  (testing "tot(n**m) = n**(m-1) * tot(n)"
+    (prop/for-all [n (gen/choose 1 50)
+                   m (gen/choose 1 11)]
+      (let [power (math/expt n m)]
+        (= (euler-totient power)
+           (* (quot power n) (euler-totient n)))))))
