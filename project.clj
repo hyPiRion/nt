@@ -6,4 +6,6 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/math.numeric-tower "0.0.3"]
                  [com.hypirion/primes "0.2.1"]]
+  :test-selectors {:default (complement :time-consuming)
+                   :all (constantly true)}
   :profiles {:dev {:dependencies [[reiddraper/simple-check "0.5.3"]]}})

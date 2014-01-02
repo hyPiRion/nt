@@ -12,20 +12,26 @@
   (testing "that divisor-count returns the correct amount of divisors"
     (is (= 2 (divisor-count 2)))
     (is (= 4 (divisor-count 8)))
-    (is (= 3 (divisor-count 9)))
-    (is (= 729 (divisor-count 656100000000)))
-    (is (= 12288 (divisor-count 10234565468127000))))
+    (is (= 3 (divisor-count 9))))
   (testing "that primes only divide 1 and themselves"
     (is (every? #(= 2 (divisor-count %)) (p/take 100)))))
+
+(deftest ^:time-consuming test-heavy-divisor-count
+  (testing "that divisor-count returns the correct amount of divisors"
+    (is (= 729 (divisor-count 656100000000)))
+    (is (= 12288 (divisor-count 10234565468127000)))))
 
 (deftest test-radical
   (testing "that the radical actually return the radical"
     (is (= 42 (radical 504)))
-    (is (= 6 (radical 768)))
-    (is (= 17558578 (radical 70234312)))
-    (is (= 600851475143 (radical 600851475143))))
+    (is (= 6 (radical 768))))
   (testing "that the radical of a prime is the prime itself"
     (is (every? #(= % (radical %)) (p/take 100)))))
+
+(deftest ^:time-consuming test-heavy-radical
+  (testing "that the radical actually return the radical"
+    (is (= 17558578 (radical 70234312)))
+    (is (= 600851475143 (radical 600851475143)))))
 
 (deftest test-euler-totient
   (testing "that the euler totient works properly"
@@ -37,8 +43,11 @@
          36 12
          81 54
          90 24
-         100 40
-         9007199254740881 9007199254740880)))
+         100 40)))
+
+(deftest ^:time-consuming test-heavy-euler-totient
+  (testing "that the euler totient works properly"
+    (is (= (euler-totient 9007199254740881) 9007199254740880))))
 
 (defspec test-gcd-idempotent
   1000
