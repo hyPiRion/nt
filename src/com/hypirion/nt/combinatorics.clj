@@ -36,3 +36,17 @@
      (-> (ncr a b) (* acc) (mod p)))
    1
    (mapv list (to-radix m p) (to-radix n p))))
+
+(defn nth-string
+  "Returns the nth string, i.e. nth subset with repeating elements.
+
+  The strings are ordered by the size of the string, then the elements'
+  indices."
+  [vect n]
+  (let [len (count vect)]
+    (loop [i n
+           accum ()]
+      (if (neg? i)
+        accum
+        (recur (dec (quot i len))
+               (->> (mod i len) (get vect) (conj accum)))))))
