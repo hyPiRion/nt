@@ -17,6 +17,6 @@ grouped under different namespaces based upon their category.
 
 ## License
 
-Copyright © 2013 Jean Niklas L'orange
+Copyright © 2013-2014 Jean Niklas L'orange
 
 Distributed under the Eclipse Public License, the same as Clojure.
